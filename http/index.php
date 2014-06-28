@@ -4,6 +4,10 @@ require_once('miner.inc.php');
 include_once('functions.inc.php');
 include_once('settings.inc.php');
 
+/*  
+
+Moveing this to a shell script soon
+
 create_graph("mhsav-hour.png", "-1h", "Last Hour");
 create_graph("mhsav-day.png", "-1d", "Last Day");
 create_graph("mhsav-week.png", "-1w", "Last Week");
@@ -29,7 +33,7 @@ function create_graph($output, $start, $title) {
   }
 }
 
-
+*/
 
 if (isset($_POST['url'])) {
         
@@ -131,8 +135,7 @@ if ($settings['donateAmount'] < 1) {
 <?php
 include('foot.php');
 
-<<<<<<< HEAD
-=======
+
 function statsTable($devs) {
   if(count($devs)==0){
     return "</tbody></table><div class='alert alert-danger'>No devices running</div>";
@@ -354,4 +357,3 @@ function poolsTable($pools) {
 
 }
 
->>>>>>> 6bdf0ebfaad64dc5b1c931c45661dde24970edf6
