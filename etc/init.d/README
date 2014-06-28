@@ -1,0 +1,5 @@
+Startup file for miners
+
+#!/bin/sh
+/usr/bin/screen -dmS miner /usr/bin/bfgminer -c /opt/minepeon/etc/miner.conf -S ALL
+
