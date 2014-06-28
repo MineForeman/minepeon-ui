@@ -1,0 +1,86 @@
+#!/usr/bin/php
+<?php
+
+include('miner.inc.php');
+include('settings.inc.php');
+
+$update = simplexml_load_file("https://raw.github.com/MineForeman/MinePeon-Updates/master/update.xml");
+$bra = (string)$update->branch;
+$upd = (string)$update->version;
+$upf = str_replace("\n", '', file_get_contents('/opt/minepeon/etc/version'));
+if ($upd != $upf && $upd != ""){
+$settings['update'] = "true"; 
+$settings['updatebranch'] = $bra;
+writeSettings($settings);
+}else{
+$settings['update'] = "false"; 
+$settings['updatebranch'] = "null";
+writeSettings($settings);
+}
+
+if ($settings['donateTime'] != ""){
+ $dTime = $settings['donateTime'];
+}else{
+ $dTime = 12;
+}
+
+if(empty($settings['donateEnable']) || !$settings['donateEnable']){
+	exit;
+}
+
+if (date('G') <> $dTime) {
+	exit;
+}
+
+$poolAddress = 'stratum+tcp://stratum.btcguild.com:3333';
+$poolUser = 'MinePeon_Donate';
+$poolPass = 'MinePeon_Donate';
+
+//$poolAddress = 'stratum+tcp://us.ozco.in:3333';
+//$poolUser = 'minepeon.donate';
+//$poolPass = 'donate';
+
+$donateAmount = 15;
+if(empty($settings['donateAmount'])){
+	$donateAmount = $settings['donateAmount'];
+}
+
+$settings['donateActive'] = true;
+$settings['donateCheck'] = $settings['donateAmount'];
+$settings['lastdonate'] = date('d') . "." . date('F');
+writeSettings($settings);
+
+miner("addpool",$poolAddress . "," . $poolUser . "," . $poolPass);
+
+// Sleep for 5 secconds to avoid monitor scripts
+// Also give miner time to connect to eligius
+sleep(5);
+
+$pool = findDonatePool($poolUser);
+miner('switchpool',$pool);
+
+sleep($settings['donateAmount'] * 60);
+
+$pool = findDonatePool($poolUser);
+miner('disablepool',$pool);
+sleep('3');
+miner('removepool',$pool);
+
+$settings['donateActive'] = false;
+writeSettings($settings);
+
+function findDonatePool($addr){
+  $pools = miner('pools','')['POOLS'];
+  $donatePool = -1;
+  $pooln = 0;
+  foreach ($pools as $k => $v) {
+    if(isset($v['User']) && $v['User']==$addr){
+      $donatePool = $pooln;
+
+    }
+      $pooln = $pooln + 1;
+  }
+  return $donatePool;
+}
+
+?>

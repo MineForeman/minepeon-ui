@@ -1,0 +1,56 @@
+#!/usr/bin/php
+<?php
+
+
+include('miner.inc.php');
+include('settings.inc.php');
+include('functions.inc.php');
+
+require_once "Mail.php";
+
+$stats = miner("devs", "");
+$devs  = $stats['DEVS'];
+
+$devcount = deviceCount($devs);
+
+if ($settings['alertEnable']) {
+    if ($settings['donateActive'] == false) {
+        if ($settings['devicesWarn'] == false) {
+            if ($settings['miningExpDev'] <> $devcount) {
+                
+                //  Set the warning flag
+                $settings['devicesWarn'] = true;
+                writeSettings($settings);
+                
+                $message = "MinePeon Fault: " . $settings['alertDevice'] . ": Unexpected device count " . $devcount . " (Expected " . $settings['miningExpDev'] . ")";
+                
+                // Send an email if the devices dont match and set the deviceWarn falt
+                sendEmail($settings, $message, $message);
+            }
+        } else {
+            if ($settings['miningExpDev'] == $devcount) {
+                
+                $message = "MinePeon Fault: " . $settings['alertDevice'] . ": Unexpected device count recovered " . $devcount . " devices now active";
+                
+                sendEmail($settings, $message, $message);
+                
+                // Clear the warning flag
+                $settings['devicesWarn'] = false;
+                writeSettings($settings);
+            }
+        }
+    }
+}
+
+
+function deviceCount($devs)
+{
+    $devices = 0;
+    
+    foreach ($devs as $dev) {
+        if ($dev['MHS5s'] > 0) {
+            $devices++;
+        }
+    }
+    return $devices;
+}
