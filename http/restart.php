@@ -1,8 +1,8 @@
 <?php
+
 include_once('functions.inc.php');
 include_once('settings.inc.php');
-this_session_start();
-login_check("quick");
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
     "http://www.w3.org/TR/html4/strict.dtd">
@@ -50,9 +50,9 @@ window.setTimeout('CountDown()',100);
   <body>
   <div class="center-page">
   <p><h1>Restarting Miner</h1></p>
-  <p>You will be redirected in</p> 
-  <p><h1 id="countdown">15</h1></p>  
-  <p>seconds.</p> 
+  <p>You will be redirected in</p>
+  <p><h1 id="countdown">15</h1></p>
+  <p>seconds.</p>
   </div>
   </body>
 </html>
@@ -61,4 +61,5 @@ window.setTimeout('CountDown()',100);
 
 include('miner.inc.php');
 
-miner('restart','');
+miner('restart', '');
+

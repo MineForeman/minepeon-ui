@@ -2,7 +2,7 @@
 include_once('functions.inc.php');
 include_once('settings.inc.php');
 this_session_start();
-login_check("quick");
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
     "http://www.w3.org/TR/html4/strict.dtd">
@@ -50,9 +50,9 @@ window.setTimeout('CountDown()',100);
   <body>
   <div class="center-page">
   <p><h1>Shutting Down MinePeon</h1></p>
-  <p>It should be safe to unplug in</p> 
-  <p><h1 id="countdown">30</h1></p>  
-  <p>seconds.</p> 
+  <p>It should be safe to unplug in</p>
+  <p><h1 id="countdown">30</h1></p>
+  <p>seconds.</p>
   </div>
   </body>
 </html>
@@ -60,3 +60,4 @@ window.setTimeout('CountDown()',100);
 <?php
 
 exec('/usr/bin/sudo /usr/bin/halt > /dev/null 2>&1 &');
+

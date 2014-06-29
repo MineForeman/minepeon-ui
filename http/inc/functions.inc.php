@@ -140,6 +140,41 @@ function get_from_session($key)
     } //no session data, no CSRF risk
 }
 
+function secondsToWords($seconds)
+{
+  $ret = "";
+
+  /*** get the days ***/
+  $days = intval(intval($seconds) / (3600*24));
+  if($days> 0)
+  {
+    $ret .= "$days<small> day </small>";
+  }
+
+  /*** get the hours ***/
+  $hours = (intval($seconds) / 3600) % 24;
+  if($hours > 0)
+  {
+    $ret .= "$hours<small> hr </small>";
+  }
+
+  /*** get the minutes ***/
+  $minutes = (intval($seconds) / 60) % 60;
+  if($minutes > 0)
+  {
+    $ret .= "$minutes<small> min </small>";
+  }
+
+  /*** get the seconds ***/
+  $seconds = intval($seconds) % 60;
+  if ($seconds > 0) {
+    $ret .= "$seconds<small> sec</small>";
+  }
+
+  return $ret;
+}
+
+
 function csrfguard_generate_token($unique_form_name)
 {
     if (function_exists("hash_algos") and in_array("sha512", hash_algos())) {
