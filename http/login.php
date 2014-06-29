@@ -7,22 +7,23 @@ include_once('functions.inc.php');
 this_session_start();
 
 
-if(isset($_POST['username'], $_POST['password'])) { 
-   $username = $_POST['username'];
-   $password = $_POST['password'];
-   if(login($username, $password) == true) {
-      if(login($username, $password) == "x1"){
-      header('Location: login.php?error=2');
-   }else{
-	$settings['loginTry'] = $settings['loginTry'] + 1;
-       writeSettings($settings);
-      header('Location: login.php?error=1');
-      }
-   } else {
-  $settings['loginTry'] = 0;
+if (isset($_POST['username'], $_POST['password'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    echo "33333333333333333333333" . $username . $password;
+    if (login($username, $password) == true) {
+        if (login($username, $password) == "x1") {
+            header('Location: login.php?error=2');
+        } else {
+            $settings['loginTry'] = $settings['loginTry'] + 1;
+            writeSettings($settings);
+            header('Location: login.php?error=1');
+        }
+    } else {
+        $settings['loginTry'] = 0;
         writeSettings($settings);
-      header('Location: /');
-      }
+        header('Location: /');
+    }
 }
 
 include('head.php');
@@ -81,16 +82,16 @@ h1{font:80px cursive;}
 <?php
 
 if (isset($_GET['error'])) {
-if ($_GET['error'] == "1"){
+    if ($_GET['error'] == "1") {
 ?>
 <div class="alert alert-danger">Username and password did not match</div>
 <?php
-}
-if ($_GET['error'] == "2"){
+    }
+    if ($_GET['error'] == "2") {
 ?>
 <div class="alert alert-danger">Your account is Blocked!</div>
 <?php
-}
+    }
 }
 
 
@@ -128,3 +129,4 @@ if (isset($_GET['newuser'])) {
 
 </body>
 </html>
+
