@@ -1,0 +1,23 @@
+{
+    "algo": "c",
+    "api-listen": true,
+    "api-port": "4028",
+    "expiry": "120",
+    "icarus-options": "115200:1:1",
+    "icarus-timing": "3.0=100",
+    "hotplug": "5",
+    "log": "5",
+    "no-pool-disable": true,
+    "queue": "1",
+    "scan-time": "60",
+    "shares": "0",
+    "kernel-path": "\/opt\/minepeon\/bin",
+    "api-allow": "W:0\/0",
+    "pools": [
+        {
+            "url": "stratum.bitcoin.cz:3333",
+            "user": "NRF.MP1",
+            "pass": "MP1"
+        }
+    ]
+}

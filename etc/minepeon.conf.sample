@@ -1,0 +1,11 @@
+{
+    "donateAmount": 15,
+    "donateEnable": true,
+    "donateTime": 12,
+    "lang": "en",
+    "loginPassword": "f38e4144c148ddb9b836b2e3d5c7154f",
+    "loginSalt": "abc54872aa3c4cd4d975bd0291511e9f",
+    "loginTry": 0,
+    "loginUsername": "mineforeman",
+    "userTimezone": "Pacific\/Auckland"
+}
