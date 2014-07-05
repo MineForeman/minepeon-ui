@@ -1,47 +1,20 @@
-#!/usr/bin/php
-<?php
+#!/bin/sh
 
-include('settings.inc.php');
+NTPDATE=`ntpdate pool.ntp.org`
+READDATE=`date`
 
-$metric  = 'hashrate';
-$RRDFILE = $metric . '.rrd';
-$RRDPATH = '/opt/minepeon/var/rrd/';
-$RRD     = $RRDPATH . $RRDFILE;
+HASHRATE=`/opt/minepeon/bin/hashrate.php`
+echo $HASHRATE
 
 
-if (!file_exists($RRD)) {
-
-        $options = array(
-                "--step", "300",
-                "--start", "-12 months",
-                "DS:" . $metric . ":GAUGE:600:0:U",
-                "RRA:AVERAGE:0.5:1:288",
-                "RRA:AVERAGE:0.5:12:168",
-                "RRA:AVERAGE:0.5:228:365"
-        );
-
-        rrd_create($RRD, $options);
-        // echo rrd_error();
-}
-
-// ############################### Get the data
-
-require('miner.inc.php');
-
-$return = miner("summary", "");
-
-$hashrate = $return['SUMMARY'][0]['MHSav'] * 1000;
-
-$hashrate = time() . ':' . $hashrate;
-
-$update = array(
-        $hashrate
-);
-
-// ###############################
-
-$ret = rrd_update($RRD, $update);
-
-$hashrate;
-
-?>
+FILE=/opt/minepeon/var/rrd/hashrate.rrd
+ 
+if [ -f $FILE ];
+then
+   echo "File $FILE exists"
+   /usr/bin/rrdtool update $FILE $HASHRATE
+   rrdtool graph /opt/minepeon/http/rrd/mhsav-hour.png DEF:hashrate=/opt/minepeon/var/rrd/hashrate.rrd:hashrate:AVERAGE CDEF:realspeed=hashrate,1000,* LINE2:realspeed#FF0000
+else
+   echo "File $FILE does not exist...  createing"
+   /usr/bin/rrdtool create $FILE --step 300 DS:hashrate:GAUGE:600:0:U RRA:AVERAGE:0.5:1:288 RRA:AVERAGE:0.5:12:1680 RRA:AVERAGE:0.5:228:365
+fi
