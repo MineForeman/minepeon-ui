@@ -72,11 +72,17 @@ include('menu.php');
   ?>
   <p class="text-center">
     <img src="rrd/mhsav-hour.png" alt="mhsav.png" />
-    <img src="rrd/mhsav-day.png" alt="mhsav.png" /><br/>
+  </p>
+  <p class="text-center">
     <a href="#" id="chartToggle">Display extended charts</a>
   </p>
   <p class="text-center collapse chartMore">
+    <img src="rrd/mhsav-day.png" alt="mhsav.png" />
+  </p>
+  <p class="text-center collapse chartMore">
     <img src="rrd/mhsav-week.png" alt="mhsav.png" />
+  </p>
+  <p class="text-center collapse chartMore">
     <img src="rrd/mhsav-month.png" alt="mhsav.png" />
   </p>
   <p class="text-center collapse chartMore">
