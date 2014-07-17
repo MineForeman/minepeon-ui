@@ -58,4 +58,10 @@ if (count($devs) == 0) {
     }
 }
 
-echo $hrateT . "|" . $devices . " DEV|" . $version;
+$title = $hrateT . "|" . $devices . " DEV"; // |" . $version;
+
+echo '
+<script language="javascript" type="text/javascript"> 
+	document.title = "' . $title . '";
+</script>';
+
