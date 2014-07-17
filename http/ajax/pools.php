@@ -67,7 +67,7 @@ function poolsTable($pools) {
     <tr class='" . $rowclass . "'>
 	<td>";
 	if($poolID != 0) {
-		$table = $table . "<form name='spool' action='/' method='post'><input type='hidden' name='url' value='" . $pool['URL'] . "' /><input type='image' src='/img/up.png' name='up' height="16" width="16"></form>";
+		$table = $table . "<form name='spool' action='/' method='post'><input type='hidden' name='url' value='" . $pool['URL'] . "' /><input type='image' src='/img/up.png' name='up' height='16' width='16'></form>";
 	}
 	$table = $table . "
     <td class='text-left'>" . $poolURL[1] . "</td>
