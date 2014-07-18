@@ -27,7 +27,7 @@ then
 
    rrdtool graph /opt/minepeon/http/rrd/mhsav-day.png \
       -w 785 -h 120 -a PNG --start -1d --end now \
-      --title "Hourly Hashrate" --watermark "MinePeon Generated $READDATE" \
+      --title "Daily Hashrate" --watermark "MinePeon Generated $READDATE" \
       --vertical-label "HashRate" --slope-mode --no-gridfit \
       DEF:hashrate=/opt/minepeon/var/rrd/hashrate.rrd:hashrate:AVERAGE \
       CDEF:realspeed=hashrate,1000,* \
@@ -35,7 +35,7 @@ then
 
    rrdtool graph /opt/minepeon/http/rrd/mhsav-week.png \
       -w 785 -h 120 -a PNG --start -1w --end now \
-      --title "Hourly Hashrate" --watermark "MinePeon Generated $READDATE" \
+      --title "Weekly Hashrate" --watermark "MinePeon Generated $READDATE" \
       --vertical-label "HashRate" --slope-mode --no-gridfit \
       DEF:hashrate=/opt/minepeon/var/rrd/hashrate.rrd:hashrate:AVERAGE \
       CDEF:realspeed=hashrate,1000,* \
@@ -43,7 +43,7 @@ then
 
    rrdtool graph /opt/minepeon/http/rrd/mhsav-month.png \
       -w 785 -h 120 -a PNG --start -1m --end now \
-      --title "Hourly Hashrate" --watermark "MinePeon Generated $READDATE" \
+      --title "Monthly Hashrate" --watermark "MinePeon Generated $READDATE" \
       --vertical-label "HashRate" --slope-mode --no-gridfit \
       DEF:hashrate=/opt/minepeon/var/rrd/hashrate.rrd:hashrate:AVERAGE \
       CDEF:realspeed=hashrate,1000,* \
@@ -51,7 +51,7 @@ then
 
    rrdtool graph /opt/minepeon/http/rrd/mhsav-year.png \
       -w 785 -h 120 -a PNG --start -1y --end now \
-      --title "Hourly Hashrate" --watermark "MinePeon Generated $READDATE" \
+      --title "Yearly Hashrate" --watermark "MinePeon Generated $READDATE" \
       --vertical-label "HashRate" --slope-mode --no-gridfit \
       DEF:hashrate=/opt/minepeon/var/rrd/hashrate.rrd:hashrate:AVERAGE \
       CDEF:realspeed=hashrate,1000,* \
