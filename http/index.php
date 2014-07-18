@@ -17,7 +17,9 @@ $pools = miner('pools','')['POOLS'];
 
 }
 
-include('head.php');
+// Static head page element
+include('static/head.php');
+
 ?>
    <script type="text/javascript">
     $(document).ready(function () {
