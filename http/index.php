@@ -1,8 +1,8 @@
 <?php
 
 require_once('miner.inc.php');
-include_once('functions.inc.php');
-include_once('settings.inc.php');
+require_once('functions.inc.php');
+require_once('settings.inc.php');
 
 if (isset($_POST['url'])) {
         
