@@ -19,8 +19,6 @@ $pools = miner('pools','')['POOLS'];
 
 include('head.php');
 ?>
-<script src="js/jquery.min.js"> 
-  </script>
    <script type="text/javascript">
     $(document).ready(function () {
         setInterval(function () {
