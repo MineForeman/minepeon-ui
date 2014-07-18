@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
-  <meta http-equiv="refresh" content="60;URL='/'" />
 
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <link href="/css/bootstrap-minepeon.css" rel="stylesheet">
@@ -24,32 +23,7 @@
   <link rel="shortcut icon" href="ico/favicon.png">-->
   
 <script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery.tablesorter.js"></script>
 
-<script type="text/javascript">
-  $(document).ready(function() {
-    $(".tablesorter").tablesorter();
-    
-    $('#chartToggle').click(function() {
-      $('.chartMore').slideToggle('slow', function() {
-          if ($(this).is(":visible")) {
-              $('#chartToggle').text('Hide extended charts');
-          } else {
-              $('#chartToggle').text('Display extended charts');
-          }
-      });
-    });
-    $('#alertEnable').click(function() {
-      $(".alert-enabled").toggle(this.checked);
-    });
-    $('#donateEnable').click(function() {
-      $(".donate-enabled").toggle(this.checked);
-    });
-    $('#alertSMTPAuth').click(function() {
-      $(".smtpauth-enabled").toggle(this.checked);
-    });
-  });
-</script>
   
 </head>
 <body>
