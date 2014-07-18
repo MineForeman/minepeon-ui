@@ -24,6 +24,7 @@ include('head.php');
    <script type="text/javascript">
     $(document).ready(function () {
         setInterval(function () {
+            $("#title1").load("ajax/title.php");
             $("#status1").load("ajax/status.php");
             $("#miners1").load("ajax/miners.php");
             $("#pools1").load("ajax/pools.php");
@@ -66,6 +67,8 @@ include('menu.php');
   }
   ?>
 
+ <div id="title1"><?php include_once("ajax/title.php"); ?></div>
+
  <div id="status1"><?php include_once("ajax/status.php"); ?></div>
 
   <center>
@@ -92,9 +95,6 @@ include('menu.php');
   ?>
 
 </div>
-<script language="javascript" type="text/javascript">
- 
-document.title = '<?php echo $G_MHSav; ?>|<?php echo $version; ?>';
  
 <?php 
  
