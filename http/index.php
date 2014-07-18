@@ -43,6 +43,10 @@ include('static/head.php');
             var mhsavyearIMG = document.getElementById('mhsavyear');
 
             mhsavhourIMG.src = 'rrd/mhsav-hour.png?rand=' + Math.random();
+            mhsavdayIMG.src = 'rrd/mhsav-day.png?rand=' + Math.random();
+            mhsavweekIMG.src = 'rrd/mhsav-week.png?rand=' + Math.random();
+            mhsavmonthIMG.src = 'rrd/mhsav-month.png?rand=' + Math.random();
+            mhsavyearIMG.src = 'rrd/mhsav-year.png?rand=' + Math.random();
            }, 60000);
 
 	// Chart Toggle
