@@ -4,6 +4,9 @@ require_once('miner.inc.php');
 require_once('functions.inc.php');
 require_once('settings.inc.php');
 
+
+// Change the pool if requested 
+
 if (isset($_POST['url'])) {
         
 $pools = miner('pools','')['POOLS'];
@@ -12,9 +15,8 @@ $pools = miner('pools','')['POOLS'];
     if(isset($value['User']) && $value['URL']==$_POST['url']){
 	  miner('switchpool',$pool);
     }
-	$pool = $pool + 1;
+    $pool = $pool + 1;
   }
-
 }
 
 // Static head page element
@@ -23,12 +25,32 @@ include('static/head.php');
 ?>
    <script type="text/javascript">
     $(document).ready(function () {
+
+	// Reload the ajax elements every seccond
         setInterval(function () {
             $("#title1").load("ajax/title.php");
             $("#status1").load("ajax/status.php");
             $("#miners1").load("ajax/miners.php");
             $("#pools1").load("ajax/pools.php");
            }, 1000);
+
+	// reload the graph images every minute
+	setInterval(function () {
+            var mhsavhourIMG = document.getElementById('mhsavhour');
+            var mhsavdayIMG = document.getElementById('mhsavday');
+            var mhsavweekIMG = document.getElementById('mhsavweek');
+            var mhsavmonthIMG = document.getElementById('mhsavmonth');
+            var mhsavyearIMG = document.getElementById('mhsavyear');
+
+            mhsavhourIMG.src = 'rrd/mhsav-hour.png?rand=' + Math.random();
+           }, 60000);
+
+	// Chart Toggle
+	$( "#chartToggle" ).click(function() {
+	    $('.chartMore').slideToggle('slow', function() {
+	    });
+	});
+
     });
    </script>
 <?php
@@ -41,22 +63,22 @@ include('menu.php');
   if (file_exists('/opt/minepeon/http/rrd/mhsav-hour.png')) {
   ?>
   <p class="text-center">
-    <img src="rrd/mhsav-hour.png" alt="mhsav.png" />
+    <img src="rrd/mhsav-hour.png" alt="mhsav.png" id="mhsavhour" />
   </p>
   <p class="text-center">
-    <a href="#" id="chartToggle">Display extended charts</a>
+    <a href="#" id="chartToggle">Toggle extended charts</a>
   </p>
   <p class="text-center collapse chartMore">
-    <img src="rrd/mhsav-day.png" alt="mhsav.png" />
+    <img src="rrd/mhsav-day.png" alt="mhsav.png" id="mhsavday" />
   </p>
   <p class="text-center collapse chartMore">
-    <img src="rrd/mhsav-week.png" alt="mhsav.png" />
+    <img src="rrd/mhsav-week.png" alt="mhsav.png" id="mhsavweek" />
   </p>
   <p class="text-center collapse chartMore">
-    <img src="rrd/mhsav-month.png" alt="mhsav.png" />
+    <img src="rrd/mhsav-month.png" alt="mhsav.png" id="mhsavmonth" />
   </p>
   <p class="text-center collapse chartMore">
-    <img src="rrd/mhsav-year.png" alt="mhsav.png" />
+    <img src="rrd/mhsav-year.png" alt="mhsav.png" id="mhsavyear" />
   </p>
   <?php
   } else {
