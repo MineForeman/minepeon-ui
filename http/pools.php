@@ -7,8 +7,8 @@ $extraPools = 2;
 // Read miner config file
 $data = json_decode(file_get_contents("/opt/minepeon/etc/miner.conf", true), true);
 
-include('head.php');
-include('menu.php');
+include('static/head.php');
+include('static/menu.php');
 ?>
 
 <div class="container">
@@ -108,7 +108,7 @@ for ($i = $countOfPools; $i < $countOfPools + $extraPools; $i++) {
         </form>
 </div>
 <?php
-include('foot.php');
+include('static/foot.php');
 ?>
 
 <script type="text/javascript">

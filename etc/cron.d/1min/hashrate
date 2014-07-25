@@ -7,7 +7,7 @@ READDATE=`date`
 
 echo $READDATE >> /tmp/update
 
-HASHRATE=`/opt/minepeon/bin/hashrate.php`
+HASHRATE=`/opt/minepeon/http/ajax/hashrate.php`
 echo $HASHRATE
 
 

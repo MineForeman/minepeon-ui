@@ -58,7 +58,7 @@ include('static/head.php');
     });
    </script>
 <?php
-include('menu.php');
+include('static/menu.php');
 ?>
 
 <div class="container">
@@ -134,7 +134,7 @@ if ($settings['donateAmount'] < 1) {
 
 </script>
 <?php
-include('foot.php');
+include('static/foot.php');
 
 
 function statsTable($devs) {

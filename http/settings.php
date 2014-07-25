@@ -185,8 +185,8 @@ foreach (DateTimeZone::listIdentifiers() as $tz) {
 $tzselect = $tzselect . '</select>';
 
 
-include('head.php');
-include('menu.php');
+include('static/head.php');
+include('static/menu.php');
 ?>
 <div class="container">
   <h2>Settings</h2>
@@ -654,5 +654,5 @@ if ($settings['donateTime'] == "23") {
     }
 } </script>
 <?php
-include('foot.php');
+include('static/foot.php');
 
