@@ -1,19 +1,41 @@
 <?php
 
+/*****************************************************************
+
+STANDARDS!!!  
+
+TEXT Encodeing
+
+* Unix Only
+
+PHP
+
+* Full Tags
+* require_once all extras (miner, functions & settings)
+* Indent 2 spaces for readability
+
+JavaScript 
+
+* Formatted with;- http://www.jslint.com/
+* Inserted just before the include('static/foot.php') line
+
+
+*****************************************************************/
+
 require_once('miner.inc.php');
 require_once('functions.inc.php');
 require_once('settings.inc.php');
-
 
 // Change the pool if requested 
 
 if (isset($_POST['url'])) {
         
-$pools = miner('pools','')['POOLS'];
+  $pools = miner('pools','')['POOLS'];
   $pool = 0;
+
   foreach ($pools as $key => $value) {
-    if(isset($value['User']) && $value['URL']==$_POST['url']){
-	  miner('switchpool',$pool);
+    if(isset($value['User']) && $value['URL']==$_POST['url']) {
+      miner('switchpool',$pool);
     }
     $pool = $pool + 1;
   }
@@ -21,44 +43,8 @@ $pools = miner('pools','')['POOLS'];
 
 // Static head page element
 include('static/head.php');
-
-?>
-   <script type="text/javascript">
-    $(document).ready(function () {
-
-	// Reload the ajax elements every seccond
-        setInterval(function () {
-            $("#title1").load("ajax/title.php");
-            $("#status1").load("ajax/status.php");
-            $("#miners1").load("ajax/miners.php");
-            $("#pools1").load("ajax/pools.php");
-           }, 1000);
-
-	// reload the graph images every minute
-	setInterval(function () {
-            var mhsavhourIMG = document.getElementById('mhsavhour');
-            var mhsavdayIMG = document.getElementById('mhsavday');
-            var mhsavweekIMG = document.getElementById('mhsavweek');
-            var mhsavmonthIMG = document.getElementById('mhsavmonth');
-            var mhsavyearIMG = document.getElementById('mhsavyear');
-
-            mhsavhourIMG.src = 'rrd/mhsav-hour.png?rand=' + Math.random();
-            mhsavdayIMG.src = 'rrd/mhsav-day.png?rand=' + Math.random();
-            mhsavweekIMG.src = 'rrd/mhsav-week.png?rand=' + Math.random();
-            mhsavmonthIMG.src = 'rrd/mhsav-month.png?rand=' + Math.random();
-            mhsavyearIMG.src = 'rrd/mhsav-year.png?rand=' + Math.random();
-           }, 60000);
-
-	// Chart Toggle
-	$( "#chartToggle" ).click(function() {
-	    $('.chartMore').slideToggle('slow', function() {
-	    });
-	});
-
-    });
-   </script>
-<?php
 include('static/menu.php');
+
 ?>
 
 <div class="container">
@@ -133,6 +119,41 @@ if ($settings['donateAmount'] < 1) {
 ?>
 
 </script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // Reload the ajax elements every seccond
+        setInterval(function () {
+            $("#title1").load("ajax/title.php");
+            $("#status1").load("ajax/status.php");
+            $("#miners1").load("ajax/miners.php");
+            $("#pools1").load("ajax/pools.php");
+           }, 1000);
+
+        // reload the graph images every minute
+        setInterval(function () {
+            var mhsavhourIMG = document.getElementById('mhsavhour');
+            var mhsavdayIMG = document.getElementById('mhsavday');
+            var mhsavweekIMG = document.getElementById('mhsavweek');
+            var mhsavmonthIMG = document.getElementById('mhsavmonth');
+            var mhsavyearIMG = document.getElementById('mhsavyear');
+
+            mhsavhourIMG.src = 'rrd/mhsav-hour.png?rand=' + Math.random();
+            mhsavdayIMG.src = 'rrd/mhsav-day.png?rand=' + Math.random();
+            mhsavweekIMG.src = 'rrd/mhsav-week.png?rand=' + Math.random();
+            mhsavmonthIMG.src = 'rrd/mhsav-month.png?rand=' + Math.random();
+            mhsavyearIMG.src = 'rrd/mhsav-year.png?rand=' + Math.random();
+           }, 60000);
+
+        // Chart Toggle
+        $( "#chartToggle" ).click(function() {
+            $('.chartMore').slideToggle('slow', function() {
+            });
+        });
+    });
+</script>
+
 <?php
 include('static/foot.php');
 

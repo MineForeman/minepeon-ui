@@ -1,6 +1,8 @@
 #!/bin/sh
 
-export TZ="Pacific/Auckland"
+TIMEZONE=`/opt/minepeon/http/ajax/timezone.php`
+
+export TZ=$TIMEZONE
 
 NTPDATE=`ntpdate pool.ntp.org`
 READDATE=`date`
