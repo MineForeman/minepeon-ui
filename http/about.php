@@ -21,21 +21,21 @@ include('static/menu.php');
   <legend>Contact</legend>
   <div style="padding: 10px 0 0 0;">You can contact Neil directly at;-</div>
   <div style="padding: 10px 0 0 0;">
-    <img style="border: 0; float: left;" alt="" src="https://mineforeman.com/email/MineFormanEmail.png" />
+    <img style="border: 0; float: left;" alt="" src="img/MineFormanEmail.png" />
       <div style="margin-left: 10px; float: left;">
         <div style="padding: 0 0 3px 0;">
           <a href="https://www.facebook.com/MineForeman">
-            <img style="border: 0;" alt="Facebook" src="https://mineforeman.com/email/facebook.png" />
+            <img style="border: 0;" alt="Facebook" src="img/facebook.png" />
           </a>
         </div>
         <div style="padding: 0 0 3px 0;">
           <a href="https://twitter.com/mineforeman">
-            <img style="border: 0;" alt="Twitter" src="https://mineforeman.com/email/twitter.png" />
+            <img style="border: 0;" alt="Twitter" src="img/twitter.png" />
           </a>
         </div>
         <div style="padding: 0 0 3px 0;">
           <a href="http://www.linkedin.com/company/mineforeman-com">
-            <img style="border: 0;" alt="LinkedIn" src="https://mineforeman.com/email/linkedin.png" />
+            <img style="border: 0;" alt="LinkedIn" src="img/linkedin.png" />
           </a>
         </div>
       </div>
