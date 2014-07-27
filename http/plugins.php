@@ -68,8 +68,8 @@ unlink('plugins/api_menu/' . $delpl2 . '_apimenu.xml');
  }
 
 
-include('head.php');
-include('menu.php');
+include('static/head.php');
+include('static/menu.php');
 
 ?>
         <div class="container">
@@ -207,4 +207,4 @@ foreach($pluginlist->pl as $pli) {
 
 <?php
 
-include('foot.php');
+include('static/foot.php');
