@@ -5,108 +5,87 @@ require('settings.inc.php');
 $extraPools = 2;
 
 // Read miner config file
-$data = json_decode(file_get_contents("/opt/minepeon/etc/miner.conf", true), true);
+$poolData = json_decode(file_get_contents("/opt/minepeon/etc/miner.conf", true), true);
+
+// Count current pools
+$countOfPools = count($poolData['pools']);
 
 include('static/head.php');
 include('static/menu.php');
 ?>
 
 <div class="container">
-        <p class="alert"><b>WARNING:</b> There is very little validation on these settings at the moment so make sure your settings are correct!</p>
-        <h1>Pools</h1>
-        <p>MinePeon will use the following pools. Change it to your mining accounts or leave it to donate.</p>
-        <form id="formpools">
-                <input type="hidden" name="saving" value="1">
-                <?php
+  <p class="alert">
+    <b>WARNING:</b>
+    There is very little validation on these settings at the moment so make sure your settings are correct!
+  </p>
+  <h1>Pools</h1>
+  <p>MinePeon will use the following pools. Change it to your mining accounts or leave it to donate.</p>
+  <form id="formpools">
+    <input type="hidden" name="saving" value="1" />
+        
+
+<?php
+
 // List populated pools
-$countOfPools = count($data['pools']);
-for ($i = 0; $i < $countOfPools; $i++) {
+
+for ($i = 0; $i < $countOfPools; $i++) { // Loop through and display current pools
+
 ?>
-                        <div class="form-group row">
-                                <div class="col-lg-5">
-                                        <label for="URL<?php
-    echo $i;
-?>"><span class="label label-success">Enabled</span> URL</label>
-                                        <input type="url" class="form-control" value="<?php
-    echo $data['pools'][$i]['url'];
-?>" name="URL<?php
-    echo $i;
-?>" id="URL<?php
-    echo $i;
-?>">
-                                </div>
-                                <div class="col-lg-5">
-                                        <label for="USER<?php
-    echo $i;
-?>">Username</label>
-                                        <input type="text" class="form-control" value="<?php
-    echo $data['pools'][$i]['user'];
-?>" name="USER<?php
-    echo $i;
-?>" id="USER<?php
-    echo $i;
-?>">
-                                </div>
-                                <div class="col-lg-2">
-                                        <label for="PASS<?php
-    echo $i;
-?>">Password <small class="text-muted">(optional)</small></label>
-                                        <input type="text" class="form-control" value="<?php
-    echo $data['pools'][$i]['pass'];
-?>" name="PASS<?php
-    echo $i;
-?>" id="PASS<?php
-    echo $i;
-?>">
-                                </div>
-                        </div>
-                        <?php
-}
+
+<!--Begin block for each current pool-->
+<div class="form-group row">
+  <div class="col-lg-5">
+    <label for="URL <?php echo $i; ?>"><span class="label label-success">Enabled</span> URL</label>
+    <input type="url" class="form-control" value="<?php echo $poolData['pools'][$i]['url']; ?>" name="URL<?php echo $i; ?>" id="URL<?php echo $i; ?>">
+  </div>
+
+  <div class="col-lg-5">
+    <label for="USER<?php echo $i; ?>">Username</label>
+    <input type="text" class="form-control" value="<?php echo $poolData['pools'][$i]['user']; ?>" name="USER<?php echo $i; ?>" id="USER<?php echo $i; ?>">
+  </div>
+
+  <div class="col-lg-2">
+    <label for="PASS<?php echo $i; ?>">Password <small class="text-muted">(optional)</small></label>
+    <input type="text" class="form-control" value="<?php echo $poolData['pools'][$i]['pass']; ?>" name="PASS<?php echo $i; ?>" id="PASS<?php echo $i; ?>">
+  </div>
+</div>
+<!--End block for each current pool-->
+
+<?php
+} // END
 
 // Extra empty rows to accomodate adding more pools
-for ($i = $countOfPools; $i < $countOfPools + $extraPools; $i++) {
+for ($i = $countOfPools; $i < $countOfPools + $extraPools; $i++) { // Loop through and display blank pools
 ?>
 
-                        <div class="form-group row">
-                                <div class="col-lg-5">
-                                        <label for="URL<?php
-    echo $i;
-?>"><span class="label label-info">New</span> URL</label>
-                                        <input type="url" class="form-control" name="URL<?php
-    echo $i;
-?>" id="URL<?php
-    echo $i;
-?>">
-                                </div>
-                                <div class="col-lg-5">
-                                        <label for="USER<?php
-    echo $i;
-?>">Username</label>
-                                        <input type="text" class="form-control" name="USER<?php
-    echo $i;
-?>" id="USER<?php
-    echo $i;
-?>">
-                                </div>
-                                <div class="col-lg-2">
-                                        <label for="PASS<?php
-    echo $i;
-?>">Password <small class="text-muted">(optional)</small></label>
-                                        <input type="text" class="form-control" name="PASS<?php
-    echo $i;
-?>" id="PASS<?php
-    echo $i;
-?>">
-                                </div>
-                        </div>
-                        <?php
-}
-?>
-                <p>After saving, the miner will restart with the new configuration. This takes about 10 seconds.</p>
-                <p><button type="button" class="btn btn-default" value="" id="save">Submit</button></p>
-                <p class="save-msg"></p>
-        </form>
+<!--Begin empty block for blank pools-->
+<div class="form-group row">
+  <div class="col-lg-5">
+    <label for="URL<?php echo $i; ?>"><span class="label label-info">New</span> URL</label>
+    <input type="url" class="form-control" name="URL<?php echo $i; ?>" id="URL<?php echo $i; ?>">
+  </div>
+  <div class="col-lg-5">
+    <label for="USER<?php echo $i; ?>">Username</label>
+    <input type="text" class="form-control" name="USER<?php echo $i; ?>" id="USER<?php echo $i; ?>">
+  </div>
+  <div class="col-lg-2">
+    <label for="PASS<?php echo $i; ?>">Password <small class="text-muted">(optional)</small></label>
+    <input type="text" class="form-control" name="PASS<?php echo $i; ?>" id="PASS<?php echo $i; ?>">
+  </div>
 </div>
+<!--End empty block for blank pools-->
+
+<?php
+} // END
+
+?>
+    <p>After saving, the miner will restart with the new configuration. This takes about 10 seconds.</p>
+    <p><button type="button" class="btn btn-default" value="" id="save">Submit</button></p>
+    <p class="save-msg"></p>
+  </form>
+</div>
+
 <?php
 include('static/foot.php');
 ?>
