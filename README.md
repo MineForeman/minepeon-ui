@@ -32,8 +32,8 @@ JavaScript
 
 * Formatted with;- http://www.jslint.com/
 * Inserted just before the include('static/foot.php') line
-* <script type="text/javascript"></script> if inline 
-* <script type="text/javascript" src="js/jquery.min.js"></script>
+* `<script type="text/javascript"></script>` if inline 
+* `<script type="text/javascript" src="js/jquery.min.js"></script>`
   If linked
 * Linked prefered
 
