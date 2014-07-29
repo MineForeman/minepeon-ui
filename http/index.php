@@ -11,21 +11,8 @@
 *****************************************************************
 STANDARDS!!!  
 
-TEXT Encodeing
-
-* Unix Only
-
-PHP
-
-* Full Tags
-* require_once all extras (miner, functions & settings)
-* Indent 2 spaces for readability
-
-JavaScript 
-
-* Formatted with;- http://www.jslint.com/
-* Inserted just before the include('static/foot.php') line
-
+Before you make any changes to push be sure to read the README.md
+avaible in the root of this repo.
 
 *****************************************************************/
 
