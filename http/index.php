@@ -129,7 +129,7 @@ if ($settings['donateAmount'] < 1) {
             $("#status1").load("ajax/status.php");
             $("#miners1").load("ajax/miners.php");
             $("#pools1").load("ajax/pools.php");
-           }, 1000);
+           }, 5000);
 
         // reload the graph images every minute
         setInterval(function () {
