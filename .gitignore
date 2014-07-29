@@ -1,0 +1,16 @@
+# Configuration Files
+etc/init.d/miner-start.sh
+etc/minepeon.conf
+etc/minepeon.pw
+etc/miner.conf
+etc/miner.user.conf
+
+# Graph images
+http/rrd/mhsav-day.png
+http/rrd/mhsav-hour.png
+http/rrd/mhsav-month.png
+http/rrd/mhsav-week.png
+http/rrd/mhsav-year.png
+
+# Hashrate Data
+var/rrd/hashrate.rrd
