@@ -18,6 +18,10 @@ MinePeon UI Components
 
 STANDARDS!!!
 
+* One change per push
+* ALWAYS pull & merge before you push
+* Discriptive commit notes
+
 TEXT Encodeing
 
 * Unix Only
