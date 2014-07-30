@@ -3,7 +3,7 @@ etc/init.d/miner-start.sh
 etc/minepeon.conf
 etc/minepeon.pw
 etc/miner.conf
-etc/miner.user.conf
+etc/miner.conf.backup
 
 # Graph images
 http/rrd/mhsav-day.png
