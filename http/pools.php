@@ -1,19 +1,77 @@
 <?php
-require('settings.inc.php');
+/****************************************************************
+*            _                                                  *
+*           (_)  http://minepeon.com                            *
+*  _ __ ___  _ _ __   ___ _ __   ___  ___  _ __                 *
+* |  _   _ \| |  _ \ / _ \  _ \ / _ \/ _ \|  _ \                *
+* | | | | | | | | | |  __/ |_) |  __/ (_) | | | |               *
+* |_| |_| |_|_|_| |_|\___|  __/ \___|\___/|_| |_|               *
+*                        | |                                    *
+*                        |_| 12Ui8w9q6eq6TxZmow8H9VHbZdfEnsLDsB *
+*****************************************************************
+STANDARDS!!!
+
+Before you make any changes to push be sure to read the README.md
+avaible in the root of this repo.
+
+*****************************************************************/
+
+require_once('miner.inc.php');
+require_once('functions.inc.php');
+require_once('settings.inc.php');
+
 
 // set the number of extra empty rows for adding pools
 $extraPools = 2;
 
-// Read miner config file
-$poolData = json_decode(file_get_contents("/opt/minepeon/etc/miner.conf", true), true);
+// read the miner config file
+$minerConf = file_get_contents("/opt/minepeon/etc/miner.conf", true);
 
-// Count current pools
-$countOfPools = count($poolData['pools']);
+// decode the json
+$data = json_decode($minerConf, true);
+
+// check whether there is POST data to handle
+if (!empty($_POST)) {
+
+  // unset the pools
+  unset($data['pools']);
+
+  // initialize the POST data counter
+  $j = 0;
+
+  //initialize a limit to the number of pools that are added to the miner config file. is there an official limit?
+  $poolLimit = 20;
+
+  // as long as the POST URL, USER and PASS data are present and the count is under the poolLimit, process the POST data
+  while ($j<$poolLimit) {
+
+    // Is the pool data empty?
+    if (!empty($_POST['URL'.$j.'']) and !empty($_POST['USER'.$j.'']) and !empty($_POST['PASS'.$j.''])) {
+      // Construct pool at j
+      $pool = array(
+        "url" => $_POST['URL'.$j.''],
+        "user" => $_POST['USER'.$j.''],
+        "pass" => $_POST['PASS'.$j.''],
+      );
+
+      // Set pool at j
+      array_push($data['pools'][] = $pool);
+    }
+    // increment count
+    $j++;
+  }
+
+  // Recode into JSON and save, restart the miner and then re-read the pools
+  file_put_contents("/opt/minepeon/etc/miner.conf", json_encode($data, JSON_PRETTY_PRINT));
+  miner("quit");
+  $minerConf = file_get_contents("/opt/minepeon/etc/miner.conf", true);
+  $data = json_decode($minerConf, true);
+}
 
 include('static/head.php');
 include('static/menu.php');
-?>
 
+?>
 <div class="container">
   <p class="alert">
     <b>WARNING:</b>
@@ -21,126 +79,62 @@ include('static/menu.php');
   </p>
   <h1>Pools</h1>
   <p>MinePeon will use the following pools. Change it to your mining accounts or leave it to donate.</p>
-  <form id="formpools">
-    <input type="hidden" name="saving" value="1" />
-        
-
+  <form id="formpools" name="input" action="/pools.php" method="post">
 <?php
 
-// List populated pools
+// set the number of populated pools
+$countOfPools = count($data['pools']);
 
-for ($i = 0; $i < $countOfPools; $i++) { // Loop through and display current pools
+for ($i = 0; $i < $countOfPools; $i++) {
+  if (!empty($data['pools'][$i]['url']) and !empty($data['pools'][$i]['user']) and !empty($data['pools'][$i]['pass'])) {
 
-?>
+    poolRow($i, 
+      $data['pools'][$i]['url'], 
+      $data['pools'][$i]['user'], 
+      $data['pools'][$i]['pass']);
 
-<!--Begin block for each current pool-->
-<div class="form-group row">
-  <div class="col-lg-5">
-    <label for="URL <?php echo $i; ?>"><span class="label label-success">Enabled</span> URL</label>
-    <input type="url" class="form-control" value="<?php echo $poolData['pools'][$i]['url']; ?>" name="URL<?php echo $i; ?>" id="URL<?php echo $i; ?>">
-  </div>
+  }
+}
 
-  <div class="col-lg-5">
-    <label for="USER<?php echo $i; ?>">Username</label>
-    <input type="text" class="form-control" value="<?php echo $poolData['pools'][$i]['user']; ?>" name="USER<?php echo $i; ?>" id="USER<?php echo $i; ?>">
-  </div>
+//output extra empty rows to accomodate adding more pools
 
-  <div class="col-lg-2">
-    <label for="PASS<?php echo $i; ?>">Password <small class="text-muted">(optional)</small></label>
-    <input type="text" class="form-control" value="<?php echo $poolData['pools'][$i]['pass']; ?>" name="PASS<?php echo $i; ?>" id="PASS<?php echo $i; ?>">
-  </div>
-</div>
-<!--End block for each current pool-->
+for ($k = $countOfPools; $k < $countOfPools+$extraPools; $k++) { 
+  // Populate empty pool row's
+  poolRow($k);
+}
 
-<?php
-} // END
-
-// Extra empty rows to accomodate adding more pools
-for ($i = $countOfPools; $i < $countOfPools + $extraPools; $i++) { // Loop through and display blank pools
-?>
-
-<!--Begin empty block for blank pools-->
-<div class="form-group row">
-  <div class="col-lg-5">
-    <label for="URL<?php echo $i; ?>"><span class="label label-info">New</span> URL</label>
-    <input type="url" class="form-control" name="URL<?php echo $i; ?>" id="URL<?php echo $i; ?>">
-  </div>
-  <div class="col-lg-5">
-    <label for="USER<?php echo $i; ?>">Username</label>
-    <input type="text" class="form-control" name="USER<?php echo $i; ?>" id="USER<?php echo $i; ?>">
-  </div>
-  <div class="col-lg-2">
-    <label for="PASS<?php echo $i; ?>">Password <small class="text-muted">(optional)</small></label>
-    <input type="text" class="form-control" name="PASS<?php echo $i; ?>" id="PASS<?php echo $i; ?>">
-  </div>
-</div>
-<!--End empty block for blank pools-->
-
-<?php
-} // END
 
 ?>
     <p>After saving, the miner will restart with the new configuration. This takes about 10 seconds.</p>
-    <p><button type="button" class="btn btn-default" value="" id="save">Submit</button></p>
-    <p class="save-msg"></p>
+    <p><input type="submit" value="Submit"></p>
   </form>
 </div>
 
 <?php
+
 include('static/foot.php');
-?>
 
-<script type="text/javascript">
-$(document).ready(function() {
-        if(window.location.search=="?sr"){
-                $('.save-msg').addClass('alert-success alert').text("Pool data succesfully saved and miner restarted.");
-        }
-        else if(window.location.search=="?s-"){
-                $('.save-msg').addClass('alert-warning alert').text('Pool data succesfully saved. But failed to restart miner.');
-        }
 
-        $('#save').click( function() {
-
-                console.log("Saving pool data");
-                $('.save-msg').addClass('alert alert-info').text('Saving pool data');
-
-                $.ajax({
-                        url: 'f_pools_save.php',
-                        type: 'post',
-                        dataType: 'json',
-                        data: $('#formpools').serialize(),
-                        success: function(data) {
-                                console.log("Debug: "+JSON.stringify(data.debug));
-
-                                if(data.success){
-                                        $('.save-msg').text('Pool data succesfully saved.');
-                                        console.log("Pool data saved");
-                                        console.log("Settings: "+data.written+" bytes");
-
-                                        console.log("Restarting miner");
-                                        var restarted=false;
-
-                                        $.get('f_miner.php?command=restart', function(d) {
-                                                console.log("Debug: "+JSON.stringify(d));
-                                                if(d.success){
-                                                        restarted=true;
-                                                }
-                                        })
-                                        .always(function() {
-                                                console.log("Reloading page");
-                                                if(restarted){
-                                                        window.location="?sr";
-                                                }
-                                                else{
-                                                        window.location="?s-";
-                                                }
-                                        });
-                                }
-                                else{
-                                        $('.save-msg').addClass('alert alert-danger').text('Could not save pool data.');
-                                }
-                        }
-                });
-        });
-});
-</script>
+function poolRow($rowNumber, $rowURL = "", $rowUser = "", $rowPass = "") {
+  // $rowNumber- Required
+  // $rowURL- optional
+  // $rowUser- optional
+  // $rowPass- optional
+?>  
+<!--Begin empty block for blank pools-->
+<div class="form-group row">
+  <div class="col-lg-5">
+    URL: 
+    <input type="text" class="form-control" type="text" value="<?php echo $rowURL; ?>" name="URL<?php echo $rowNumber; ?>">
+  </div>
+  <div class="col-lg-5">
+    Username: 
+    <input type="text" class="form-control" type="text" value="<?php echo $rowUser; ?>" name="USER<?php echo $rowNumber; ?>">
+  </div>
+  <div class="col-lg-2">
+    Password: 
+    <input type="text" class="form-control" type="text" value="<?php echo $rowPass; ?>" name="PASS<?php echo $rowNumber; ?>">
+  </div>
+</div>
+<?php
+}
