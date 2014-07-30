@@ -63,7 +63,7 @@ if (!empty($_POST)) {
 
   // Recode into JSON and save, restart the miner and then re-read the pools
   file_put_contents("/opt/minepeon/etc/miner.conf", json_encode($data, JSON_PRETTY_PRINT));
-  miner("quit");
+  miner("restart");
   $minerConf = file_get_contents("/opt/minepeon/etc/miner.conf", true);
   $data = json_decode($minerConf, true);
 }
