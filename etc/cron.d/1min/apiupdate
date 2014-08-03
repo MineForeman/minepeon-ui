@@ -3,7 +3,19 @@
 include ('miner.inc.php');
 include ('settings.inc.php');
 
+
+$hostsipaddress = str_replace("\n","",shell_exec("ifconfig eth0 | grep 'inet addr' | awk -F':' {'print $2'} | awk -F' ' {'print $1'}"));
+
+//echo $hostsipaddress;
+
+//echo $settings['userTimezone'];
+
 $api_update = "?a&c=ssl";
+
+// Standard fiels added the the end of all responces
+
+$api_update .= "&ip=" . $hostsipaddress;
+$api_update .= "&apikey=" . $settings['apikey'];
 
 $api_server = "https://mineforeman.io/API/";
 
