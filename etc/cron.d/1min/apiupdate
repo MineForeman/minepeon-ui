@@ -16,6 +16,7 @@ $api_update = "?a&c=ssl";
 
 $api_update .= "&ip=" . $hostsipaddress;
 $api_update .= "&apikey=" . $settings['apikey'];
+$api_update .= "&version=" . $version;
 
 $api_server = "https://mineforeman.io/API/";
 
