@@ -1,0 +1,10 @@
+#!/usr/bin/php
+<?php
+include ('miner.inc.php');
+include ('settings.inc.php');
+
+$api_update = "?a&c=ssl";
+
+$api_server = "https://mineforeman.io/API/";
+
+file_get_contents($api_server . $api_update);
