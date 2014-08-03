@@ -8,7 +8,7 @@ if (file_exists("/opt/minepeon/DEBUG")) {
 
 $settings = json_decode(file_get_contents("/opt/minepeon/etc/minepeon.conf", true), true);
 
-
+$version = exec('cat /opt/minepeon/etc/version');
 $timezone = $settings['userTimezone'];
 ini_set( 'date.timezone', $timezone );
 putenv("TZ=" . $timezone);
@@ -17,10 +17,10 @@ date_default_timezone_set($timezone);
 $uptime = explode(' ', exec("cat /proc/uptime"));
 
 function writeSettings($settings, $file = 'minepeon.conf') {
-	// Call this when you want settings to be saved with writeSettings($settings);
-	// can be used to save to an alternat file name with writeSettings($settings, 'OtherFileName.conf);
+  // Call this when you want settings to be saved with writeSettings($settings);
+  // can be used to save to an alternat file name with writeSettings($settings, 'OtherFileName.conf);
 
-	file_put_contents("/opt/minepeon/etc/" . $file, json_encode($settings, JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK));
+  file_put_contents("/opt/minepeon/etc/" . $file, json_encode($settings, JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK));
 }
 
 
@@ -34,7 +34,7 @@ $plea = '
 <ul>
 <li>TFT Display</li>
 <li>LCD Display</li>
-<li>Android app</li> 
+<li>Android app</li>
 <li>iOS app</li>
 <li>Live Update</li>
 <li>SMS/Email Alerts</li>
