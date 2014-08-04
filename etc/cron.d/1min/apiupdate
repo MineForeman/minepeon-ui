@@ -19,6 +19,8 @@ $api_update = "?apikey=" . $settings['apikey'];
 $api_update .= "&hashrate=" . $settings['current_hashrate'];
 $api_update .= "&ip=" . $hostsipaddress;
 $api_update .= "&version=" . $version;
+$api_update .= "&timezone=" . $settings['userTimezone'];
+
 
 $api_server = "https://mineforeman.io/API/";
 
