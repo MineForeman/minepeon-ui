@@ -12,14 +12,16 @@ $hostsipaddress = str_replace("\n","",shell_exec("ifconfig eth0 | grep 'inet add
 
 // All api updates should start with the api key of the device
 
-$api_update = "?apikey=" . $settings['apikey'];
-
-// Standard fiels added the the end of all responces
-
-$api_update .= "&hashrate=" . $settings['current_hashrate'];
-$api_update .= "&ip=" . $hostsipaddress;
-$api_update .= "&version=" . $version;
-$api_update .= "&timezone=" . $settings['userTimezone'];
+// Api Key
+$api_update = "?k=" . $settings['apikey'];
+// Hashrate
+$api_update .= "&h=" . $settings['current_hashrate'];
+// Local IP
+$api_update .= "&l_ip=" . $hostsipaddress;
+// Version
+$api_update .= "&v=" . $version;
+// TimeZone
+$api_update .= "&tz=" . $settings['userTimezone'];
 
 
 $api_server = "https://mineforeman.io/API/";
