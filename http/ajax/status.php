@@ -12,6 +12,10 @@ $devs = $stats['DEVS'];
 $summary = miner("summary", "");
 $pools = miner("pools", "");
 
+// "devicesWarn": true,
+//    "donateActive": false,
+//    "donateAmount"
+
 ?>
   <div class="row">
     <div class="col-lg-4">
@@ -41,7 +45,7 @@ $pools = miner("pools", "");
         <dt><?php echo $lang["minerversion"]; ?></dt>
         <dd><?php echo $summary['STATUS'][0]['Description']; ?></dd>
         <dt><?php echo $lang["donationmin"]; ?></dt>
-        <dd><?php ?>
+        <dd><?php echo $settings['donateAmount']; ?>
       </dl>
     </div>
   </div>
