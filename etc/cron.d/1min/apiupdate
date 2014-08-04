@@ -16,6 +16,7 @@ $api_update = "?apikey=" . $settings['apikey'];
 
 // Standard fiels added the the end of all responces
 
+$api_update .= "&hashrate=" . $settings['current_hashrate'];
 $api_update .= "&ip=" . $hostsipaddress;
 $api_update .= "&version=" . $version;
 
