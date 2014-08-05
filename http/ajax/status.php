@@ -45,7 +45,16 @@ $pools = miner("pools", "");
         <dt><?php echo $lang["minerversion"]; ?></dt>
         <dd><?php echo $summary['STATUS'][0]['Description']; ?></dd>
         <dt><?php echo $lang["donationmin"]; ?></dt>
-        <dd><?php echo $settings['donateAmount']; ?>
+        <dd>
+<?php 
+
+if  ($settings['donateEnable']) {
+  echo $settings['donateAmount']; 
+} else {
+  echo "Not Enabled";
+}
+
+?>
       </dl>
     </div>
   </div>
