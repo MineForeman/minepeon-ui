@@ -26,4 +26,7 @@ $api_update .= "&tz=" . $settings['userTimezone'];
 
 $api_server = "https://mineforeman.io/API/";
 
+// Wait between 0 and 59 secconds to make the report to stop the server being hit every minute on the minute by EVERYONE
+sleep(mt_rand(0,59));
+
 file_get_contents($api_server . $api_update);
