@@ -1,12 +1,56 @@
 <?php
 
+// Load settings
+$settings = json_decode(file_get_contents("/opt/minepeon/etc/minepeon.conf", true), true);
+
 if (file_exists("/opt/minepeon/DEBUG")) {
     $debug = true;
 } else {
     $debug = false;
 } 
 
-$settings = json_decode(file_get_contents("/opt/minepeon/etc/minepeon.conf", true), true);
+// Check for default values, if they are not set, set them
+// Only happens one for a new install
+// current_hashrate
+if (!isset($settings['current_hashrate'])) {
+  $settings['current_hashrate'] = 0;
+  writeSettings($settings);
+}
+// userTimezone
+if (!isset($settings['userTimezone'])) {
+  $settings['userTimezone'] = "Pacific/Auckland";
+  writeSettings($settings);
+}
+// donateEnable
+if (!isset($settings['donateEnable'])) {
+  $settings['donateEnable'] = true;
+  writeSettings($settings);
+}
+// donateAmount
+if (!isset($settings['donateAmount'])) {
+  $settings['donateAmount'] = 15;
+  writeSettings($settings);
+}
+// donateTime
+if (!isset($settings['donateTime'])) {
+  $settings['donateTime'] = 12;
+  writeSettings($settings);
+}
+// apiKey
+if (!isset($settings['apiKey'])) {
+  $settings['apiKey'] = "";
+  writeSettings($settings);
+}
+// apiURL
+if (!isset($settings['apiURL'])) {
+  $settings['apiURL'] = "https://mineforeman.io/API/";
+  writeSettings($settings);
+}
+// apiEnable
+if (!isset($settings['apiEnable'])) {
+  $settings['apiEnable'] = true;
+  writeSettings($settings);
+}
 
 $version = exec('cat /opt/minepeon/etc/version');
 $timezone = $settings['userTimezone'];
