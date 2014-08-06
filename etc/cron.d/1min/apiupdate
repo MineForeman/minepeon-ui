@@ -1,32 +1,40 @@
 #!/usr/bin/php
 <?php
+
 include ('miner.inc.php');
 include ('settings.inc.php');
 
+// If the api is not enabled, do nothing
 
-$hostsipaddress = str_replace("\n","",shell_exec("ifconfig eth0 | grep 'inet addr' | awk -F':' {'print $2'} | awk -F' ' {'print $1'}"));
+if ($settings['apiEnable'] != false) {
 
-//echo $hostsipaddress;
-
-//echo $settings['userTimezone'];
-
-// All api updates should start with the api key of the device
-
-// Api Key
-$api_update = "?k=" . $settings['apikey'];
-// Hashrate
-$api_update .= "&h=" . $settings['current_hashrate'];
-// Local IP
-$api_update .= "&l_ip=" . $hostsipaddress;
-// Version
-$api_update .= "&v=" . $version;
-// TimeZone
-$api_update .= "&tz=" . $settings['userTimezone'];
+  if ($settings['apiKey'] == "") {
+    // No api key, get one
+    $settings['apiKey'] = file_get_contents($settings['apiURL'] . "?k=");
+    writeSettings($settings);
+  }
 
 
-$api_server = "https://mineforeman.io/API/";
+  $hostsipaddress = str_replace("\n","",shell_exec("ifconfig eth0 | grep 'inet addr' | awk -F':' {'print $2'} | awk -F' ' {'print $1'}"));
+
+
+  // All api updates should start with the api key of the device
+
+  // Api Key
+  $api_update = "?k=" . $settings['apiKey'];
+  // Hashrate
+  $api_update .= "&h=" . $settings['current_hashrate'];
+  // Local IP
+  $api_update .= "&l_ip=" . $hostsipaddress;
+  // Version
+  $api_update .= "&v=" . $version;
+  // TimeZone
+  $api_update .= "&tz=" . $settings['userTimezone'];
+
 
 // Wait between 0 and 59 secconds to make the report to stop the server being hit every minute on the minute by EVERYONE
-sleep(mt_rand(0,59));
+// sleep(mt_rand(0,59));
 
-file_get_contents($api_server . $api_update);
+  file_get_contents($settings['apiURL'] . $api_update);
+
+}
