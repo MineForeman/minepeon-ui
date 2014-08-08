@@ -51,6 +51,12 @@ if (!isset($settings['apiEnable'])) {
   $settings['apiEnable'] = true;
   writeSettings($settings);
 }
+// apiWrite
+if (!isset($settings['apiWrite'])) {
+  $settings['apiEnable'] = false;
+  writeSettings($settings);
+}
+
 
 $version = exec('cat /opt/minepeon/etc/version');
 $timezone = $settings['userTimezone'];
