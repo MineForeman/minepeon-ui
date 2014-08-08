@@ -53,7 +53,7 @@ if (!isset($settings['apiEnable'])) {
 }
 // apiWrite
 if (!isset($settings['apiWrite'])) {
-  $settings['apiEnable'] = false;
+  $settings['apiWrite'] = false;
   writeSettings($settings);
 }
 
