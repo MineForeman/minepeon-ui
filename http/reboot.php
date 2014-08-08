@@ -39,12 +39,12 @@ function CountDown(){
     var counter = parseInt(seconds-(now-start),10);
     document.getElementById('countdown').innerHTML = counter;
     if(counter > 0){
-        timerID = setTimeout("CountDown()", 100)
+        timerID = setTimeout("CountDown()", 30)
     }else{
         location.href = "/"
     }
 }
-window.setTimeout('CountDown()',100);
+window.setTimeout('CountDown()',30);
 </script>
   </head>
   <body>
