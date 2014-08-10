@@ -1,0 +1,20 @@
+#!/bin/sh
+
+TIMEZONE=`/opt/minepeon/http/ajax/timezone.php`
+
+export TZ=$TIMEZONE
+
+
+FILE=/opt/minepeon/var/rrd/hashrate.rrd
+ 
+if [ -f $FILE ];
+then
+   # echo "File $FILE exists"
+   rrdtool graph /opt/minepeon/http/rrd/mhsav-hour.png \
+      -w 785 -h 120 -a PNG --start -1h --end now \
+      --title "Hourly Hashrate" --watermark "MinePeon Generated $READDATE" \
+      --vertical-label "HashRate" --slope-mode --no-gridfit \
+      DEF:hashrate=/opt/minepeon/var/rrd/hashrate.rrd:hashrate:AVERAGE \
+      CDEF:realspeed=hashrate,1000,* \
+      LINE2:realspeed#FF0000
+fi

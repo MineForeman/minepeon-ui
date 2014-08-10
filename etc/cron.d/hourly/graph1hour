@@ -4,37 +4,12 @@ TIMEZONE=`/opt/minepeon/http/ajax/timezone.php`
 
 export TZ=$TIMEZONE
 
-NTPDATE=`ntpdate pool.ntp.org`
-READDATE=`date`
-
-echo $READDATE >> /tmp/update
-
-HASHRATE=`/opt/minepeon/http/ajax/hashrate.php`
-echo $HASHRATE
-
 
 FILE=/opt/minepeon/var/rrd/hashrate.rrd
  
 if [ -f $FILE ];
 then
-   echo "File $FILE exists"
-   /usr/bin/rrdtool update $FILE $HASHRATE
-   rrdtool graph /opt/minepeon/http/rrd/mhsav-hour.png \
-      -w 785 -h 120 -a PNG --start -1h --end now \
-      --title "Hourly Hashrate" --watermark "MinePeon Generated $READDATE" \
-      --vertical-label "HashRate" --slope-mode --no-gridfit \
-      DEF:hashrate=/opt/minepeon/var/rrd/hashrate.rrd:hashrate:AVERAGE \
-      CDEF:realspeed=hashrate,1000,* \
-      LINE2:realspeed#FF0000
-
-   rrdtool graph /opt/minepeon/http/rrd/mhsav-day.png \
-      -w 785 -h 120 -a PNG --start -1d --end now \
-      --title "Daily Hashrate" --watermark "MinePeon Generated $READDATE" \
-      --vertical-label "HashRate" --slope-mode --no-gridfit \
-      DEF:hashrate=/opt/minepeon/var/rrd/hashrate.rrd:hashrate:AVERAGE \
-      CDEF:realspeed=hashrate,1000,* \
-      LINE2:realspeed#FF0000
-
+   # echo "File $FILE exists"
    rrdtool graph /opt/minepeon/http/rrd/mhsav-week.png \
       -w 785 -h 120 -a PNG --start -1w --end now \
       --title "Weekly Hashrate" --watermark "MinePeon Generated $READDATE" \
@@ -58,8 +33,4 @@ then
       DEF:hashrate=/opt/minepeon/var/rrd/hashrate.rrd:hashrate:AVERAGE \
       CDEF:realspeed=hashrate,1000,* \
       LINE2:realspeed#FF0000
-
-else
-   echo "File $FILE does not exist...  createing"
-   /usr/bin/rrdtool create $FILE --step 60 DS:hashrate:GAUGE:120:0:U RRA:AVERAGE:0.5:1:288 RRA:AVERAGE:0.5:12:1680 RRA:AVERAGE:0.5:228:365
 fi

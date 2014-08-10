@@ -1,0 +1,25 @@
+#!/bin/sh
+
+TIMEZONE=`/opt/minepeon/http/ajax/timezone.php`
+
+export TZ=$TIMEZONE
+
+NTPDATE=`ntpdate pool.ntp.org`
+READDATE=`date`
+
+echo $READDATE >> /tmp/update
+
+HASHRATE=`/opt/minepeon/http/ajax/hashrate.php`
+#echo $HASHRATE
+
+
+FILE=/opt/minepeon/var/rrd/hashrate.rrd
+ 
+if [ -f $FILE ];
+then
+   #echo "File $FILE exists"
+   /usr/bin/rrdtool update $FILE $HASHRATE
+else
+   #echo "File $FILE does not exist...  createing"
+   /usr/bin/rrdtool create $FILE --step 60 DS:hashrate:GAUGE:120:0:U RRA:AVERAGE:0.5:1:288 RRA:AVERAGE:0.5:12:1680 RRA:AVERAGE:0.5:228:365
+fi
