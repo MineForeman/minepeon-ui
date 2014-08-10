@@ -123,7 +123,7 @@ if ($settings['donateAmount'] < 1) {
             $("#status1").load("ajax/status.php");
             $("#miners1").load("ajax/miners.php");
             $("#pools1").load("ajax/pools.php");
-           }, 5000);
+           }, <?php echo $settings['uiDataUpdate'] * 1000; ?>);
 
         // reload the graph images every minute
         setInterval(function () {
@@ -138,7 +138,7 @@ if ($settings['donateAmount'] < 1) {
             mhsavweekIMG.src = 'rrd/mhsav-week.png?rand=' + Math.random();
             mhsavmonthIMG.src = 'rrd/mhsav-month.png?rand=' + Math.random();
             mhsavyearIMG.src = 'rrd/mhsav-year.png?rand=' + Math.random();
-           }, 60000);
+           }, <?php echo $settings['uiGraphUpdate'] * 1000; ?>);
 
         // Chart Toggle
         $( "#chartToggle" ).click(function() {

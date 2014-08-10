@@ -56,6 +56,17 @@ if (!isset($settings['apiWrite'])) {
   $settings['apiWrite'] = false;
   writeSettings($settings);
 }
+// uiGraphUpdate 
+if (!isset($settings['uiGraphUpdate'])) {
+  $settings['uiGraphUpdate'] = 60;
+  writeSettings($settings);
+}
+// uiDataUpdate
+if (!isset($settings['uiDataUpdate'])) {
+  $settings['uiDataUpdate'] = 10;
+  writeSettings($settings);
+}
+
 
 
 $version = exec('cat /opt/minepeon/etc/version');
