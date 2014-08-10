@@ -1,7 +1,11 @@
 <?php
 
+
+
 // Load settings
 $settings = json_decode(file_get_contents("/opt/minepeon/etc/minepeon.conf", true), true);
+
+require_once("lang/en.php");
 
 if (file_exists("/opt/minepeon/DEBUG")) {
     $debug = true;
