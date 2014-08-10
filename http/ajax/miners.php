@@ -1,14 +1,11 @@
 <?php
 require_once('miner.inc.php');
 include_once('functions.inc.php');
-include_once("../lang/en/lang.en.php");
 include_once('settings.inc.php');
+
 $G_MHSav = 0;
 $stats = miner("devs", "");
-$status = $stats['STATUS'];
 $devs = $stats['DEVS'];
-$summary = miner("summary", "");
-$pools = miner("pools", "");
 
   if(count($devs)==0){
     echo "<div class='alert alert-danger'>No devices running</div>";
