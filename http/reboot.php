@@ -32,7 +32,7 @@ include_once('settings.inc.php');
 <script type="text/javascript">
 var start = new Date();
 start = Date.parse(start)/1000;
-var seconds = 60;
+var seconds = 30;
 function CountDown(){
     var now = new Date();
     now = Date.parse(now)/1000;
@@ -51,7 +51,7 @@ window.setTimeout('CountDown()',30);
   <div class="center-page">
   <p><h1>Rebooting MinePeon</h1></p>
   <p>You will be redirected in</p>
-  <p><h1 id="countdown">60</h1></p>
+  <p><h1 id="countdown">30</h1></p>
   <p>seconds.</p>
   </div>
   </body>
