@@ -88,7 +88,7 @@ include('static/menu.php');
 
 
   <h3><?php echo $lang["devices"]; ?></h3>
- <div id="miners1"><?php include_once("ajax/miners.php"); ?></div>
+ <div id="devices1"><?php include_once("ajax/devices.php"); ?></div>
   <?php
   if ($debug == true) {
 	
@@ -121,7 +121,7 @@ if ($settings['donateAmount'] < 1) {
         setInterval(function () {
             $("#title1").load("ajax/title.php");
             $("#status1").load("ajax/status.php");
-            $("#miners1").load("ajax/miners.php");
+            $("#devices1").load("ajax/devices.php");
             $("#pools1").load("ajax/pools.php");
            }, <?php echo $settings['uiDataUpdate'] * 1000; ?>);
 
