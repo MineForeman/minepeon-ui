@@ -1,19 +1,20 @@
 #!/bin/sh
 
 TIMEZONE=`/opt/minepeon/http/ajax/timezone.php`
+HASHRATE=`/opt/minepeon/http/ajax/hashrate.php`
+FILE=/opt/minepeon/var/rrd/hashrate.rrd
+YEAR=`date +'%Y'`
+
 
 export TZ=$TIMEZONE
 
-NTPDATE=`ntpdate pool.ntp.org`
-READDATE=`date`
+YEAR=`date +'%Y'`
 
-echo $READDATE >> /tmp/update
-
-HASHRATE=`/opt/minepeon/http/ajax/hashrate.php`
-#echo $HASHRATE
-
-
-FILE=/opt/minepeon/var/rrd/hashrate.rrd
+if [ $YEAR -lt 2014 ];
+then
+  echo "getting date"
+  NTPDATE=`ntpdate pool.ntp.org`
+fi
  
 if [ -f $FILE ];
 then
