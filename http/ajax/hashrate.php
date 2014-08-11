@@ -1,21 +1,30 @@
 #!/usr/bin/php
 <?php
+/****************************************************************
+*            _                                                  *
+*           (_)  http://minepeon.com                            *
+*  _ __ ___  _ _ __   ___ _ __   ___  ___  _ __                 *
+* |  _   _ \| |  _ \ / _ \  _ \ / _ \/ _ \|  _ \                *
+* | | | | | | | | | |  __/ |_) |  __/ (_) | | | |               *
+* |_| |_| |_|_|_| |_|\___|  __/ \___|\___/|_| |_|               *
+*                        | |                                    *
+*                        |_| 12Ui8w9q6eq6TxZmow8H9VHbZdfEnsLDsB *
+*****************************************************************
+STANDARDS!!!
 
-include('settings.inc.php');
-require('miner.inc.php');
+Before you make any changes to push be sure to read the README.md
+avaible in the root of this repo.
 
-// Save the hashrate to minepeon.conf
 
+*****************************************************************/
+
+require_once('miner.inc.php');
+require_once('settings.inc.php');
+require_once('status.inc.php');
 
 $return = miner("summary", "");
 
 $hashrate = $return['SUMMARY'][0]['MHSav'] * 1000;
-
-// Save the hashrate to minepeon.conf
-
-$settings['current_hashrate'] = $hashrate;
-
-writeSettings($settings);
 
 $hashrate = time() . ':' . $hashrate;
 
@@ -23,10 +32,8 @@ $update = array(
         $hashrate
 );
 
-// ###############################
-
-// $ret = rrd_update($RRD, $update);
-
 echo $hashrate;
+
+writeStatus($return['SUMMARY'][0]);
 
 ?>

@@ -15,12 +15,6 @@ if (file_exists("/opt/minepeon/DEBUG")) {
 
 // Check for default values, if they are not set, set them
 // Only happens one for a new install
-// current_hashrate
-if (!isset($settings['current_hashrate'])) {
-  $settings['current_hashrate'] = 0;
-  writeSettings($settings);
-}
-// userTimezone
 if (!isset($settings['userTimezone'])) {
   $settings['userTimezone'] = "Pacific/Auckland";
   writeSettings($settings);

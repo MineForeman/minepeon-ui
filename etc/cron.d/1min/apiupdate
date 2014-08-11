@@ -1,29 +1,39 @@
 #!/usr/bin/php
 <?php
 
-include ('miner.inc.php');
-include ('settings.inc.php');
+require_once('miner.inc.php');
+require_once('settings.inc.php');
+require_once('status.inc.php');
+
+if ($argv[1] = "debug") {
+
+  $debug = true;
+  echo "Debug Mode\n";
+
+}
 
 // If the api is not enabled, do nothing
 
 if ($settings['apiEnable'] != false) {
 
+  // Special case, if the api is enabled and there is not api key get one from the api
   if ($settings['apiKey'] == "") {
     // No api key, get one
     $settings['apiKey'] = file_get_contents($settings['apiURL'] . "?k=");
     writeSettings($settings);
+    exit();
   }
 
 
+  // First bit in the api update is always the URL
+  $api_update = $settings['apiURL'];
+
   $hostsipaddress = str_replace("\n","",shell_exec("ifconfig eth0 | grep 'inet addr' | awk -F':' {'print $2'} | awk -F' ' {'print $1'}"));
 
-
-  // All api updates should start with the api key of the device
-
   // Api Key
-  $api_update = "?k=" . $settings['apiKey'];
+  $api_update .= "?k=" . $settings['apiKey'];
   // Hashrate
-  $api_update .= "&h=" . $settings['current_hashrate'];
+  $api_update .= "&h=" . $status['MHSav'];
   // Local IP
   $api_update .= "&l_ip=" . $hostsipaddress;
   // Version
@@ -31,13 +41,27 @@ if ($settings['apiEnable'] != false) {
   // TimeZone
   $api_update .= "&tz=" . $settings['userTimezone'];
 
+  // Api Write "apiWrite"
+  $api_update .= "&aw=" . $settings['apiWrite'];
+  // PoolURL
+
+  // PoolUser
+
+  // Devices
+
+  // Miner Uptime
+
+  // Peon Uptime $uptime[0]
+  $api_update .= "&ut=" . $uptime[0];
 
   // Wait between 0 and 59 seconds....
   sleep(mt_rand(0,59));
 
   // Update the API and save it's responce
-  $apiResponce = file_get_contents($settings['apiURL'] . $api_update);
+  $apiResponce = file_get_contents($api_update);
   $settings['apiResponce'] = $apiResponce;
   writeSettings($settings);
   
+  // Debug output
+  if ($debug) { echo $api_update . "\n"; }
 }
