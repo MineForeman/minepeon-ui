@@ -1,18 +1,10 @@
 <?php
 
-function totalMH() {
-  $stats = miner("devs", "");
-$devs = $stats['DEVS'];
-  $MHSav = 0;
+$statusFile = "/tmp/status.json";
 
-if(count($devs)==0){
-    return "0";
-  }
+$status = json_decode(file_get_contents($statusFile, true), true);
 
-  foreach ($devs as $dev) {
-     $MHSav = $MHSav + $dev['MHSav'];
-	}
-  
-  return $MHSav;
+
+function writeStatus($status) {
+  file_put_contents($statusFile, json_encode($settings, JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK));
 }
-
