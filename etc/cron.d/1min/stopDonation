@@ -1,0 +1,22 @@
+#!/usr/bin/php
+<?php
+
+require_once('miner.inc.php');
+require_once('settings.inc.php');
+
+// The donation pool
+$poolAddress = 'stratum+tcp://stratum.btcguild.com:3333';
+$poolUser = 'MinePeon_Donate';
+$poolPass = 'MinePeon_Donate';
+
+// Check to see if it is not the donation time
+if (date('i') > $settings['donateAmount'] and date('H') != $settings['donateTime']) {
+  // If the donate pool is present remove it
+  $pool = findPool($poolAddress, $poolUser);
+  if ($pool) {
+    miner('disablepool', $pool);
+    $pool = findPool($poolAddress, $poolUser);
+    miner('removepool', $pool);
+  }
+}
+
