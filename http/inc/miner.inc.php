@@ -53,3 +53,19 @@ function miner($command, $parameter = "", $host = "127.0.0.1", $port = 4028) {
 
 }
 
+// find a pool
+function findPool($poolURL, $poolUser){
+  $pools = miner('pools','')['POOLS'];
+  $pool = false;
+  $pooln = 0;
+  foreach ($pools as $key => $value) {
+    if($value['URL'] == $poolURL and $value['User'] == $poolUser){
+      $pool = $pooln;
+
+    }
+      $pooln = $pooln + 1;
+  }
+  return $pool;
+}
+
+
