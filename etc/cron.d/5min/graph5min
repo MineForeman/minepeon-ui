@@ -3,7 +3,7 @@
 TIMEZONE=`/opt/minepeon/http/ajax/timezone.php`
 
 export TZ=$TIMEZONE
-
+READDATE=`date`
 
 FILE=/opt/minepeon/var/rrd/hashrate.rrd
  
