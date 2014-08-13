@@ -1,0 +1,24 @@
+#!/usr/bin/php
+<?php
+
+include('miner.inc.php');
+include('settings.inc.php');
+
+// The donation pool
+$poolAddress = 'stratum+tcp://stratum.btcguild.com:3333';
+$poolUser = 'MinePeon_Donate';
+$poolPass = 'MinePeon_Donate';
+
+
+if ($settings['donateEnable'] == true and date('H') == $settings['donateTime']) {
+
+  miner("addpool",$poolAddress . "," . $poolUser . "," . $poolPass);
+
+  $pool = findPool($poolAddress, $poolUser);
+
+  miner('switchpool',$pool);
+
+}
+
+
+
