@@ -19,12 +19,9 @@ avaible in the root of this repo.
 *****************************************************************/
 
 require_once('miner.inc.php');
-require_once('settings.inc.php');
-require_once('status.inc.php');
 
 // Grab the summary and pool data
 $summary = miner("summary", "");
-$pools = miner("pools", "");
 
 // Get the hashrate and echo it for the update script
 $hashrate = $summary['SUMMARY'][0]['MHSav'] * 1000;
@@ -32,8 +29,3 @@ $hashrate = time() . ':' . $hashrate;
 $update = array($hashrate);
 echo $hashrate;
 
-// Write the pool and summary data
-writeStatus(array_merge($pools['POOLS'][0], $summary['SUMMARY'][0]));
-
-
-?>
