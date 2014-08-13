@@ -10,12 +10,17 @@ $poolUser = 'MinePeon_Donate';
 $poolPass = 'MinePeon_Donate';
 
 // Check to see if it is not the donation time
-if (date('i') > $settings['donateAmount'] and date('H') != $settings['donateTime']) {
-  // If the donate pool is present remove it
+if (date('i') < $settings['donateAmount'] and date('H') == $settings['donateTime']) {
+  // Valid donate time, dont find and remove the donation pool
+} else {
+  // Invalid donate time, find and remove the donation pool
   $pool = findPool($poolAddress, $poolUser);
   if ($pool) {
+    sleep(1)
     miner('disablepool', $pool);
+    sleep(1);
     $pool = findPool($poolAddress, $poolUser);
+    sleep(1);
     miner('removepool', $pool);
   }
 }

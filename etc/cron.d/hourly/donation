@@ -9,15 +9,11 @@ $poolAddress = 'stratum+tcp://stratum.btcguild.com:3333';
 $poolUser = 'MinePeon_Donate';
 $poolPass = 'MinePeon_Donate';
 
-
+// Check if it is donation time and if it is enabled
 if ($settings['donateEnable'] == true and date('H') == $settings['donateTime']) {
-
   miner("addpool",$poolAddress . "," . $poolUser . "," . $poolPass);
-
   $pool = findPool($poolAddress, $poolUser);
-
   miner('switchpool',$pool);
-
 }
 
 
