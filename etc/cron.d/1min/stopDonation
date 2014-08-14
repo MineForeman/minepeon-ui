@@ -16,7 +16,7 @@ if (date('i') < $settings['donateAmount'] and date('H') == $settings['donateTime
   // Invalid donate time, find and remove the donation pool
   $pool = findPool($poolAddress, $poolUser);
   if ($pool) {
-    sleep(1)
+    sleep(1);
     miner('disablepool', $pool);
     sleep(1);
     $pool = findPool($poolAddress, $poolUser);
