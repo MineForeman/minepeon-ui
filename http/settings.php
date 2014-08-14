@@ -35,19 +35,14 @@ if (isset($_POST['lang'])) {
 }
 
 if (isset($_POST['userPassword1'])) {
-    
-    if ($_POST['userPassword1'] <> '') {
-        $salt                      = md5(uniqid(mt_rand(1, mt_getrandmax())));
-        $settings['loginSalt']     = $salt;
-        $password                  = md5($_POST['userPassword1'] . $salt);
-        $settings['loginPassword'] = $password;
-        $settings['loginTry']      = 0;
-        ksort($settings);
-        writeSettings($settings);
-        header('Location: /settings.php');
-        exit;
-        
-    }
+
+  if ($_POST['userPassword1'] <> '') {
+    $hash = crypt($_POST['userPassword1'], base64_encode($_POST['userPassword1']));
+    $contents = "minepeon" . ':' . $hash;
+    file_put_contents('/opt/minepeon/etc/minepeon.pwd', $contents);
+    header('Location: /settings.php');
+    exit;
+  }
 }
 // Miner startup file
 
