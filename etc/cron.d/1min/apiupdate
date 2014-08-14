@@ -21,7 +21,7 @@ if ($settings['apiEnable'] != false) {
 
 
   // First bit in the api update is always the URL
-  $api_update = $settings['apiURL'];
+  $api_update = $settings['apiURL'] . "API/";
 
   $hostsipaddress = str_replace("\n","",shell_exec("ifconfig eth0 | grep 'inet addr' | awk -F':' {'print $2'} | awk -F' ' {'print $1'}"));
 

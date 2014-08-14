@@ -41,7 +41,7 @@ if (!isset($settings['apiKey'])) {
 }
 // apiURL
 if (!isset($settings['apiURL'])) {
-  $settings['apiURL'] = "https://mineforeman.io/API/";
+  $settings['apiURL'] = "https://mineforeman.io/";
   writeSettings($settings);
 }
 // apiEnable
