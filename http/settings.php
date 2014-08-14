@@ -37,13 +37,16 @@ if (isset($_POST['lang'])) {
 if (isset($_POST['userPassword1'])) {
 
   if ($_POST['userPassword1'] <> '') {
+    $npass = $_POST['userPassword1'];
     $hash = crypt($_POST['userPassword1'], base64_encode($_POST['userPassword1']));
     $contents = "minepeon" . ':' . $hash;
     file_put_contents('/opt/minepeon/etc/minepeon.pwd', $contents);
+    exec("echo -e \"$npass\n$npass\n\" | passwd root");
     header('Location: /settings.php');
     exit;
   }
 }
+
 // Miner startup file
 
 if (isset($_POST['minerSettings'])) {
@@ -208,7 +211,7 @@ if (isset($_POST['apiEnable'])) {
   </fieldset>
 </form>
 <!-- ### End Language ### -->
-
+<!-- ### Begin Password ### -->
     <form name="password" action="/settings.php" method="post" class="form-horizontal">
     <fieldset>
       <legend>Password</legend>
@@ -226,7 +229,7 @@ if (isset($_POST['apiEnable'])) {
 
     </fieldset>
   </form>
-
+<!-- ### End Password ### -->
 <!-- ######################## -->
 
 <!-- ######################## -->
