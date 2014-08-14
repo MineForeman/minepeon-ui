@@ -59,7 +59,7 @@ if ($settings['apiEnable'] != false) {
   $api_update .= "&ut=" . $uptime[0];
 
   // Wait between 0 and 58 seconds....
-  sleep(mt_rand(0,58));
+  sleep(mt_rand(0,10));
 
   // Update the API and save it's responce
   $apiResponce = file_get_contents($api_update);
