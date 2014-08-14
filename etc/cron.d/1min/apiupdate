@@ -14,8 +14,12 @@ if ($settings['apiEnable'] != false) {
   // Special case, if the api is enabled and there is not api key get one from the api
   if ($settings['apiKey'] == "") {
     // No api key, get one
-    $settings['apiKey'] = file_get_contents($settings['apiURL'] . "?k=");
-    writeSettings($settings);
+    $returnedKey = file_get_contents($settings['apiURL'] ."API/" . "?k=");
+    // Make sure what was returned looks like a key (sort of)
+    if (preg_match("/^[1,3][a-km-zA-HJ-NP-Z0-9]{26,33}$/", $returnedKey)) {
+      $settings['apiKey'] = $returnedKey;
+      writeSettings($settings);
+    }
     exit();
   }
 
@@ -65,7 +69,7 @@ if ($settings['apiEnable'] != false) {
   $apiResponce = file_get_contents($api_update);
   $settings['apiResponce'] = $apiResponce;
   writeSettings($settings);
-  
+ 
   // Debug output
   echo $api_update . "\n"; 
 }
