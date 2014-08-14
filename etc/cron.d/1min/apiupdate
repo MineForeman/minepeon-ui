@@ -56,7 +56,7 @@ if ($settings['apiEnable'] != false) {
   $api_update .= "&dt=" . $settings['donateTime'];
 
   // Devices
-
+  $api_update .= "&d=" . $status['devices'];
   // Miner Uptime
 
   // Peon Uptime $uptime[0]

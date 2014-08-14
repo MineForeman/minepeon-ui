@@ -26,11 +26,13 @@ require_once('functions.inc.php');
 // Grab the summary and pool data
 $summary = miner("summary", "");
 $pools = miner("pools", "");
+$devs = miner("devs", "");
+$devs = array("devices" => count($devs['DEVS']));
 
 $pool_array = $pools['POOLS'];
 array_sort_by_column($pool_array, 'Priority');
 $summary_array = $summary['SUMMARY'][0];
 
 // Write the pool and summary data
-writeStatus(array_merge($pool_array[0], $summary_array));
-
+writeStatus(array_merge($pool_array[0], $summary_array, $devs));
+print_r($devs);
