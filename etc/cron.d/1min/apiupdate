@@ -37,11 +37,20 @@ if ($settings['apiEnable'] != false) {
   $api_update .= "&tz=" . $settings['userTimezone'];
 
   // Api Write "apiWrite"
-  $api_update .= "&aw=" . $settings['apiWrite'];
+  $api_update .= "&aw=";
+  if ($settings['apiWrite']) { $api_update .="1"; } else { $api_update .="0"; }
   // PoolURL
   $api_update .= "&p=" . $status['URL'];
   // PoolUser
   $api_update .= "&u=" . $status['User'];
+  // Donate Enable
+  $api_update .= "&de=";
+  if ($settings['donateEnable']) { $api_update .="1"; } else { $api_update .="0"; }
+  // Donate Ammount
+  $api_update .= "&da=" . $settings['donateAmount'];
+  // Donate Time
+  $api_update .= "&dt=" . $settings['donateTime'];
+
   // Devices
 
   // Miner Uptime
@@ -58,5 +67,5 @@ if ($settings['apiEnable'] != false) {
   writeSettings($settings);
   
   // Debug output
-  if ($debug) { echo $api_update . "\n"; }
+  echo $api_update . "\n"; 
 }
