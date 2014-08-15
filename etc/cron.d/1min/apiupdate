@@ -68,8 +68,17 @@ if ($settings['apiEnable'] != false) {
   // Update the API and save it's responce
   $apiResponce = file_get_contents($api_update);
   $settings['apiResponce'] = $apiResponce;
+
+  // Parse the responce
+  parse_str($apiResponce, $parseResponce);
+  if ($parseResponce['upgrade'] == "true") {
+    $settings['update'] = true;
+  } else {
+    $settings['update'] = false;
+  }
   writeSettings($settings);
- 
+
   // Debug output
-  echo $api_update . "\n"; 
+  //echo $api_update . "\n";
+  //print_r($parseResponce);
 }

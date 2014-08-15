@@ -17,7 +17,7 @@ include("lang/en/lang.en.php");
   
 <div class="navbar navbar-default">
 <div class="container">
-    <a class="navbar-brand" href="http://mineforeman.com/minepeon/"><small>Beta </small>MinePeon</a>
+    <a class="navbar-brand" href="http://minepeon.com/"><small>Beta </small>MinePeon</a>
     <ul class="nav navbar-nav">
       <li><a href="/"><?php echo $lang["status"]; ?></a></li>
       <li><a href="/pools.php"><?php echo $lang["pools"]; ?></a></li>
@@ -46,7 +46,7 @@ if ($settings['update'] == "true"){
 <div align="center" class="container">
 <div class="alert alert-info alert-dismissable">
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-  <strong>Minepeon:</strong> Update available! <a href="/update.php" class="alert-link">Do you want to update?</a>
+  <strong>Minepeon:</strong> Update available! <a href="http://minepeon.com/img/" class="alert-link">Do you want to update?</a>
 </div>
 </div>
 <?php
